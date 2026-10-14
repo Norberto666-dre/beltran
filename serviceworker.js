@@ -1,8 +1,8 @@
 // Service Worker para PWA - CoffeeShop GB
-// Este archivo hace que la app funcione offline y muestre el icono de instalar en Chrome
+// Estrategia Network First para funcionar offline y online correctamente
 
-const CACHE_NAME = 'coffeeshop-gb-v1';
-const urlsToCache = [
+const CACHE_NAME = 'coffeeshop-gb-v2';
+const FILES_TO_CACHE = [
   '/',
   '/index.html',
   '/detalle.html',
@@ -21,14 +21,12 @@ const urlsToCache = [
   '/imagenes/imgcard/taza8.png'
 ];
 
-// Instalar el Service Worker y cachear archivos
+// Install event - cache files precargados
 self.addEventListener('install', event => {
+  console.log('SW instalando, precacheando', FILES_TO_CACHE.length, 'recursos');
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        console.log('Cache abierto');
-        return cache.addAll(urlsToCache);
-      })
+      .then(cache => cache.addAll(FILES_TO_CACHE))
   );
   // Forzar que el nuevo SW tome control inmediatamente
   self.clients.claim();
@@ -36,46 +34,44 @@ self.addEventListener('install', event => {
 
 // Activar y limpiar caches antiguos
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames.map(cache => {
-          if (cacheWhitelist.indexOf(cache) === -1) {
+          if (cache !== CACHE_NAME) {
+            console.log('Borrando cache antiguo:', cache);
             return caches.delete(cache);
           }
         })
       );
     })
   );
-  // Tomar control de todas las ventanas cliente
   self.clients.claim();
 });
 
-// Estrategia de fetch: cache first para assets, network first para datos
+// Fetch event - Network First estrategia
 self.addEventListener('fetch', event => {
-  // Solo cachear GET requests a mismo origen
-  if (event.request.method !== 'GET') return;
-  
   const url = new URL(event.request.url);
   
-  // Cachear archivos estáticos (HTML, CSS, JS, imágenes)
-  if (urlsToCache.includes(url.pathname)) {
+  // Para navegación (HTML) - Network First: red primero, caché fallback
+  if (url.pathname.endsWith('.html') || url.pathname === '/') {
     event.respondWith(
-      caches.match(event.request)
-        .then(response => {
-          if (response) {
-            return response;
-          }
-          return fetch(event.request);
-        })
+      fetch(event.request).then(networkResponse => {
+        // Actualizar cache en background
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, networkResponse.clone());
+        });
+        return networkResponse;
+      }).catch(() => {
+        // Fallback a caché si falla la red
+        return caches.match(event.request);
+      })
     );
   } else {
-    // Para otras peticiones, ir a la red
+    // Cache First para assets (imágenes, CSS, JS) - más rápido después de primera visita
     event.respondWith(
-      fetch(event.request).catch(() => {
-        // Si falla la red, intentar con cache
-        return caches.match(event.request);
+      caches.match(event.request).then(cachedResponse => {
+        return cachedResponse || fetch(event.request);
       })
     );
   }
