@@ -4,8 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="Detalle del café - CoffeeShop GB">
+        <title>Detalle del café | CoffeeShop GB</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="manifest" href="manifest.json">
+        <link rel="icon" href="imagenes/icons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" href="imagenes/icons/icon-192x192.png" sizes="192x192">
 
         <link rel="apple-touch-icon" href="imagenes/icons/icon-72x72.png">
         <link rel="apple-touch-icon" href="imagenes/icons/icon-96x96.png">
@@ -14,80 +18,128 @@
         <link rel="apple-touch-icon" href="imagenes/icons/icon-152x152.png">
         <link rel="apple-touch-icon" href="imagenes/icons/icon-192x192.png">
 
-        <meta name="theme-color" content="#db4938">
+        <meta name="theme-color" content="#241610">
+        <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
-        <!-- Estilos para la card de detalle -->
-        <style>
-            body { background: #fafafa; font-family: 'Nunito', sans-serif; }
-            .detail-container { max-width: 360px; margin: 2rem auto; padding: 1rem; }
-            .detail-card {
-                border: 2px solid #db4938;
-                border-radius: 12px;
-                padding: 1.5rem 1rem;
-                background: #fff;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                transition: transform 0.3s;
-            }
-            .detail-card:hover { transform: translateY(-2px); }
-            .detail-card .img-wrapper {
-                width: 100%;
-                height: 200px;
-                background: #e2e8f0;
-                border-radius: 8px;
-                margin-bottom: 1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: #718096;
-                font-size: 0.8rem;
-            }
-            .detail-card img {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                border-radius: 8px;
-                margin-bottom: 1rem;
-            }
-            .detail-card h2 { color: #db4938; margin: 0.5rem 0; font-size: 1.3rem; }
-            .detail-card .precio { font-size: 1.2rem; color: #2d3748; font-weight: bold; margin: 0.5rem 0; display: block; }
-            .detail-card p { color: #555; line-height: 1.5; margin: 0.5rem 0; font-size: 0.9rem; }
-            .detail-card small { color: #888; font-size: 0.8rem; display: block; margin-top: 0.5rem; }
-            .btn-volver {
-                width: 100%;
-                padding: 0.75rem;
-                background: #db4938;
-                color: white;
-                border: none;
-                border-radius: 6px;
-                cursor: pointer;
-                font-family: 'Nunito', sans-serif;
-                font-size: 0.9rem;
-                margin-top: 1.5rem;
-            }
-            .btn-volver:hover { background: #c53d2e; }
-        </style>
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     </head>
-    <body>
-        <main style="padding: 1rem;">
-            <div class="detail-container">
-                <!-- Card por defecto - se remplazará con JavaScript -->
-                <div class="detail-card" id="default-card">
-                    <div class="img-wrapper" id="img-placeholder">
-                        Imagen del café
-                    </div>
-                    <h2 class="card-title" id="title-placeholder">Nombre del Café</h2>
-                    <p class="card-precio" id="precio-placeholder">$XX MXN</p>
-                    <p class="card-descripcion" id="descripcion-placeholder">
-                        Descripción del café aquí. Este café se caracteriza por su...
-                    </p>
-                    <small class="card-id" id="id-placeholder">#1</small>
-                </div>
-                <!-- Botón volver (siempre visible) -->
-                <button class="btn-volver" id="btn-volver" style="margin-top: 1rem;">← Volver al catálogo</button>
+    <body class="page-detalle">
+        <a class="skip-link" href="#contenido">Saltar al contenido</a>
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="brand" href="index.html">
+                    <span class="brand-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+                            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"></path>
+                            <line x1="6" y1="2" x2="6" y2="4"></line>
+                            <line x1="10" y1="2" x2="10" y2="4"></line>
+                            <line x1="14" y1="2" x2="14" y2="4"></line>
+                        </svg>
+                    </span>
+                    <span class="brand-text">CoffeeShop <em>GB</em></span>
+                </a>
+
+                <nav class="main-nav" aria-label="Navegación principal">
+                    <a href="index.html#inicio">Inicio</a>
+                    <a href="index.html#catalogo">Catálogo</a>
+                    <a href="index.html#acerca">Acerca</a>
+                </nav>
+
+                <button class="cart-btn" id="cart-btn" type="button" aria-label="Pedido">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
             </div>
+        </header>
+
+        <main id="contenido">
+            <section class="detail">
+                <div class="container">
+                    <nav class="breadcrumb" aria-label="Migas de pan">
+                        <a href="index.html">Inicio</a>
+                        <span aria-hidden="true">/</span>
+                        <a href="index.html#catalogo">Catálogo</a>
+                        <span aria-hidden="true">/</span>
+                        <span id="breadcrumb-actual">Café</span>
+                    </nav>
+
+                    <article class="detail-card" id="detalle-card">
+                        <div class="detail-media">
+                            <div class="img-wrapper" id="img-placeholder">
+                                <span class="img-loading">Cargando café…</span>
+                            </div>
+                            <span class="product-tag" id="badge-placeholder">Café</span>
+                        </div>
+
+                        <div class="detail-body">
+                            <span class="eyebrow">Ficha del producto</span>
+                            <h1 class="detail-title" id="title-placeholder">Nombre del café</h1>
+
+                            <div class="detail-rating" aria-label="Valoración 5 de 5">
+                                <span class="stars" aria-hidden="true">★★★★★</span>
+                                <span class="rating-text">5.0 · 128 reseñas</span>
+                            </div>
+
+                            <p class="detail-desc" id="descripcion-placeholder">Descripción del café.</p>
+
+                            <ul class="note-chips" id="notas-placeholder" aria-label="Notas de cata"></ul>
+
+                            <div class="intensity" aria-label="Intensidad">
+                                <span class="intensity-label">Intensidad</span>
+                                <span class="intensity-meter" id="intensidad-placeholder"></span>
+                            </div>
+
+                            <p class="detail-price" id="precio-placeholder">$XX <small>MXN</small></p>
+
+                            <div class="detail-actions">
+                                <div class="stepper" role="group" aria-label="Cantidad">
+                                    <button type="button" class="stepper-btn" id="qty-minus" aria-label="Quitar uno">−</button>
+                                    <input type="number" id="qty-input" value="1" min="1" max="99" aria-label="Cantidad" readonly>
+                                    <button type="button" class="stepper-btn" id="qty-plus" aria-label="Agregar uno">+</button>
+                                </div>
+                                <button type="button" class="btn btn-primary btn-add" id="btn-agregar">Agregar al pedido</button>
+                            </div>
+
+                            <a class="btn-back" id="btn-volver" href="index.html#catalogo">
+                                <span aria-hidden="true">←</span> Volver al catálogo
+                            </a>
+
+                            <p class="detail-meta">Preparación al momento · Disponible hoy · #<span id="id-placeholder">1</span></p>
+                        </div>
+                    </article>
+
+                    <nav class="detail-nav" aria-label="Navegación entre cafés">
+                        <a href="#" id="nav-anterior"><span aria-hidden="true">←</span> <span>Anterior</span></a>
+                        <a href="index.html#catalogo">Catálogo</a>
+                        <a href="#" id="nav-siguiente"><span>Siguiente</span> <span aria-hidden="true">→</span></a>
+                    </nav>
+                </div>
+            </section>
         </main>
+
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <div class="footer-brand">
+                    <div class="brand-text">CoffeeShop <em>GB</em></div>
+                    <p>Café de especialidad con experiencia PWA: instálala, úsala en línea y sigue disfrutándola sin conexión.</p>
+                </div>
+                <nav class="footer-links" aria-label="Enlaces del pie de página">
+                    <a href="index.html#inicio">Inicio</a>
+                    <a href="index.html#catalogo">Catálogo</a>
+                    <a href="index.html#acerca">Acerca</a>
+                </nav>
+                <p class="footer-legal">© 2026 CoffeeShop GB. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
         <script src="js/app.js"></script>
     </body>
 </html>

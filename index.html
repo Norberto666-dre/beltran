@@ -4,8 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="description" content="CoffeeShop GB - Café de especialidad con experiencia PWA. Catálogo de 8 cafés artesanales.">
+        <title>CoffeeShop GB</title>
         <link rel="stylesheet" href="css/style.css">
         <link rel="manifest" href="manifest.json">
+        <link rel="icon" href="imagenes/icons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" href="imagenes/icons/icon-192x192.png" sizes="192x192">
 
         <link rel="apple-touch-icon" href="imagenes/icons/icon-72x72.png">
         <link rel="apple-touch-icon" href="imagenes/icons/icon-96x96.png">
@@ -14,89 +18,278 @@
         <link rel="apple-touch-icon" href="imagenes/icons/icon-152x152.png">
         <link rel="apple-touch-icon" href="imagenes/icons/icon-192x192.png">
 
-        <meta name="theme-color" content="#db4938">
+        <meta name="theme-color" content="#241610">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     </head>
-    <title>CoffeeShop GB</title>
     <body>
-        <main>
-            <nav>
-                <h1>Coffee PWA</h1>
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Blog</li>
-                </ul>
-            </nav>
+        <a class="skip-link" href="#contenido">Saltar al contenido</a>
+        <header class="site-header">
+            <div class="container header-inner">
+                <a class="brand" href="index.html">
+                    <span class="brand-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
+                            <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V8z"></path>
+                            <line x1="6" y1="2" x2="6" y2="4"></line>
+                            <line x1="10" y1="2" x2="10" y2="4"></line>
+                            <line x1="14" y1="2" x2="14" y2="4"></line>
+                        </svg>
+                    </span>
+                    <span class="brand-text">CoffeeShop <em>GB</em></span>
+                </a>
 
-            <section class="cards">
-                <div class="card" onclick="window.location='detalle.html?id=1'">
-                    <img src="imagenes/imgcard/taza1.png" alt="Espresso">
-                    <div class="card-info">
-                        <h3>Espresso</h3>
-                        <p>Café concentrado de sabor intenso, preparado con agua a alta presión.</p>
+                <nav class="main-nav" aria-label="Navegación principal">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#catalogo">Catálogo</a>
+                    <a href="#acerca">Acerca</a>
+                </nav>
+
+                <button class="cart-btn" id="cart-btn" type="button" aria-label="Pedido">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="9" cy="21" r="1"></circle>
+                        <circle cx="20" cy="21" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                    </svg>
+                    <span class="cart-count" id="cart-count">0</span>
+                </button>
+            </div>
+        </header>
+
+        <main id="contenido">
+            <section class="hero" id="inicio">
+                <div class="container hero-inner">
+                    <div class="hero-content">
+                        <span class="eyebrow">Café de especialidad</span>
+                        <h1 class="hero-title">Tu ritual de café,<br><span class="text-accent">hecho con intención</span></h1>
+                        <p class="hero-subtitle">Granos seleccionados, tueste artesanal y preparaciones de barista. Descubre los 8 cafés de CoffeeShop GB.</p>
+                        <div class="hero-actions">
+                            <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
+                            <a class="btn btn-ghost" href="#acerca">Nuestra historia</a>
+                        </div>
+                        <ul class="hero-stats" aria-label="Datos destacados">
+                            <li><strong>8</strong><span>variedades</span></li>
+                            <li><strong>100%</strong><span>Arábica</span></li>
+                            <li><strong>4.9</strong><span>valoración</span></li>
+                        </ul>
+                    </div>
+                    <div class="hero-visual" aria-hidden="true">
+                        <div class="hero-blob"></div>
+                        <img src="imagenes/imgcard/taza1.png" alt="" class="hero-cup" width="300" height="300" loading="eager" fetchpriority="high" decoding="async">
+                        <div class="hero-chip hero-chip-top">Desde $45 MXN</div>
+                        <div class="hero-chip hero-chip-bottom">Tueste de la semana</div>
                     </div>
                 </div>
+            </section>
 
-                <div class="card" onclick="window.location='detalle.html?id=2'">
-                    <img src="imagenes/imgcard/taza2.png" alt="Americano">
-                    <div class="card-info">
-                        <h3>Americano</h3>
-                        <p>Espresso suavizado con agua caliente, ideal para cualquier momento del día.</p>
+            <section class="catalog" id="catalogo">
+                <div class="container">
+                    <div class="section-head">
+                        <div>
+                            <span class="eyebrow">Nuestra selección</span>
+                            <h2 class="section-title">Nuestros cafés</h2>
+                        </div>
+                        <div class="search" role="search">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                            <input type="search" id="buscar-cafe" placeholder="Buscar café por nombre..." aria-label="Buscar café por nombre">
+                        </div>
                     </div>
-                </div>
 
-                <div class="card" onclick="window.location='detalle.html?id=3'">
-                    <img src="imagenes/imgcard/taza3.png" alt="Cappuccino">
-                    <div class="card-info">
-                        <h3>Cappuccino</h3>
-                        <p>Equilibrio perfecto entre espresso, leche vaporizada y espuma cremosa.</p>
+                    <div class="product-grid" id="product-grid">
+                        <a class="product-card" href="detalle.html?id=1" data-nombre="espresso">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza1.png" alt="Espresso" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Espresso</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Espresso</h3>
+                                <p class="product-desc">Café concentrado de sabor intenso</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$45 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="product-card" href="detalle.html?id=2" data-nombre="americano">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza2.png" alt="Americano" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Americano</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Americano</h3>
+                                <p class="product-desc">Espresso suavizado con agua caliente</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$50 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="product-card" href="detalle.html?id=3" data-nombre="cappuccino">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza3.png" alt="Cappuccino" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Cappuccino</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Cappuccino</h3>
+                                <p class="product-desc">Equilibrio perfecto entre espresso, leche y espuma</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$55 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="product-card" href="detalle.html?id=4" data-nombre="latte">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza4.png" alt="Latte" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Latte</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Latte</h3>
+                                <p class="product-desc">Espresso con abundante leche vaporizada</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$60 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="product-card" href="detalle.html?id=5" data-nombre="macchiato">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza5.png" alt="Macchiato" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Macchiato</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Macchiato</h3>
+                                <p class="product-desc">Espresso marcado con espuma de leche</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$50 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="product-card" href="detalle.html?id=6" data-nombre="mocha">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza6.png" alt="Mocha" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Mocha</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Mocha</h3>
+                                <p class="product-desc">Combinación perfecta de espresso y chocolate</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$65 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="product-card" href="detalle.html?id=7" data-nombre="cortado">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza7.png" alt="Cortado" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Cortado</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Cortado</h3>
+                                <p class="product-desc">Espresso cortado con leche caliente</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$50 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
+
+                        <a class="product-card" href="detalle.html?id=8" data-nombre="flat white flatwhite">
+                            <div class="product-media">
+                                <img src="imagenes/imgcard/taza8.png" alt="Flat White" loading="lazy" decoding="async" width="300" height="300">
+                                <span class="product-tag">Flat White</span>
+                            </div>
+                            <div class="product-body">
+                                <h3 class="product-name">Flat White</h3>
+                                <p class="product-desc">Doble espresso con leche micro-espumada</p>
+                                <div class="product-foot">
+                                    <span class="product-price">$70 <small>MXN</small></span>
+                                    <span class="product-cta">Ver detalle <span aria-hidden="true">→</span></span>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
 
-                <div class="card" onclick="window.location='detalle.html?id=4'">
-                    <img src="imagenes/imgcard/taza4.png" alt="Latte">
-                    <div class="card-info">
-                        <h3>Latte</h3>
-                        <p>Espresso con abundante leche vaporizada, suave y sedoso al paladar.</p>
+                    <p class="empty-state" id="empty-state" hidden>No encontramos cafés con ese nombre. Prueba con “latte” o “mocha”.</p>
+                </div>
+            </section>
+
+            <section class="features" id="acerca">
+                <div class="container">
+                    <div class="section-head section-head-center">
+                        <div>
+                            <span class="eyebrow">Por qué CoffeeShop GB</span>
+                            <h2 class="section-title">Café que se siente artesanal</h2>
+                        </div>
                     </div>
-                </div>
-
-                <div class="card" onclick="window.location='detalle.html?id=5'">
-                    <img src="imagenes/imgcard/taza5.png" alt="Macchiato">
-                    <div class="card-info">
-                        <h3>Macchiato</h3>
-                        <p>Espresso marcado con un toque de espuma de leche, intenso y aromático.</p>
-                    </div>
-                </div>
-
-                <div class="card" onclick="window.location='detalle.html?id=6'">
-                    <img src="imagenes/imgcard/taza6.png" alt="Mocha">
-                    <div class="card-info">
-                        <h3>Mocha</h3>
-                        <p>La combinación perfecta de espresso, chocolate y leche vaporizada.</p>
-                    </div>
-                </div>
-
-                <div class="card" onclick="window.location='detalle.html?id=7'">
-                    <img src="imagenes/imgcard/taza7.png" alt="Cortado">
-                    <div class="card-info">
-                        <h3>Cortado</h3>
-                        <p>Espresso cortado con un splash de leche caliente, balanceado y directo.</p>
-                    </div>
-                </div>
-
-                <div class="card" onclick="window.location='detalle.html?id=8'">
-                    <img src="imagenes/imgcard/taza8.png" alt="Flat White">
-                    <div class="card-info">
-                        <h3>Flat White</h3>
-                        <p>Doble espresso con leche micro-espumada, cremoso y sin burbujas grandes.</p>
+                    <div class="feature-grid">
+                        <article class="feature-card">
+                            <span class="feature-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7z"></path>
+                                    <circle cx="12" cy="9" r="2.5"></circle>
+                                </svg>
+                            </span>
+                            <h3>Origen trazable</h3>
+                            <p>Granos 100% Arábica de fincas seleccionadas, con fecha de tueste en cada bolsa.</p>
+                        </article>
+                        <article class="feature-card">
+                            <span class="feature-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 3c1.5 2.5 4 3.5 4 7a4 4 0 0 1-8 0c0-3.5 2.5-4.5 4-7z"></path>
+                                    <path d="M6 21h12"></path>
+                                </svg>
+                            </span>
+                            <h3>Tueste artesanal</h3>
+                            <p>Perfiles de tueste desarrollados para resaltar notas dulces y cuerpo balanceado.</p>
+                        </article>
+                        <article class="feature-card">
+                            <span class="feature-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="1" y="3" width="15" height="13" rx="2"></rect>
+                                    <path d="M16 8h4l3 3v5h-7V8z"></path>
+                                    <circle cx="5.5" cy="18.5" r="2.5"></circle>
+                                    <circle cx="18.5" cy="18.5" r="2.5"></circle>
+                                </svg>
+                            </span>
+                            <h3>Entrega rápida</h3>
+                            <p>Pide desde la app PWA y recíbelo el mismo día dentro de la ciudad.</p>
+                        </article>
                     </div>
                 </div>
             </section>
         </main>
+
+        <footer class="site-footer">
+            <div class="container footer-inner">
+                <div class="footer-brand">
+                    <div class="brand-text">CoffeeShop <em>GB</em></div>
+                    <p>Café de especialidad con experiencia PWA: instálala, úsala en línea y sigue disfrutándola sin conexión.</p>
+                </div>
+                <nav class="footer-links" aria-label="Enlaces del pie de página">
+                    <a href="#inicio">Inicio</a>
+                    <a href="#catalogo">Catálogo</a>
+                    <a href="#acerca">Acerca</a>
+                </nav>
+                <p class="footer-legal">© 2026 CoffeeShop GB. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+
+        <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
         <script src="js/app.js"></script>
     </body>
 </html>
