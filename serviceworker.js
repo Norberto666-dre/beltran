@@ -2,11 +2,19 @@
 // Network First en navegaciones + Cache First en assets.
 // Usa rutas RELATIVAS para funcionar en la raíz y en subrutas (GitHub Pages: /beltran/).
 
-const CACHE_NAME = 'coffeeshop-gb-v3';
+const CACHE_NAME = 'coffeeshop-gb-v4';
 const FILES_TO_CACHE = [
   './',
   './index.html',
   './detalle.html',
+  './cafe-espresso.html',
+  './cafe-americano.html',
+  './cafe-cappuccino.html',
+  './cafe-latte.html',
+  './cafe-macchiato.html',
+  './cafe-mocha.html',
+  './cafe-cortado.html',
+  './cafe-flat-white.html',
   './css/style.css',
   './js/app.js',
   './manifest.json',

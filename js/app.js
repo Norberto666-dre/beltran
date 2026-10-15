@@ -191,7 +191,7 @@ function pintarNotas(notas) {
   });
 }
 
-function initControlesDetalle(cafe) {
+function initControlesPedido(nombre) {
   const input = document.getElementById("qty-input");
   const menos = document.getElementById("qty-minus");
   const mas = document.getElementById("qty-plus");
@@ -207,18 +207,29 @@ function initControlesDetalle(cafe) {
       const total = obtenerPedido() + cantidad();
       guardarPedido(total);
       pintarContadorPedido(true);
-      mostrarToast(`${cantidad()} × ${cafe.nombre} agregado al pedido`);
+      mostrarToast(`${cantidad()} × ${nombre} agregado al pedido`);
     });
   }
+}
+
+function paginaDeCafe(id) {
+  const cafe = coffees.find((c) => c.id === id);
+  if (!cafe) return null;
+  const slug = cafe.nombre.toLowerCase().replace(/\s+/g, "-");
+  return { ...cafe, href: `cafe-${slug}.html` };
+}
+
+function initControlesDetalle(cafe) {
+  initControlesPedido(cafe.nombre);
 
   const anterior = document.getElementById("nav-anterior");
   const siguiente = document.getElementById("nav-siguiente");
-  const previo = coffees.find((c) => c.id === cafe.id - 1);
-  const proximo = coffees.find((c) => c.id === cafe.id + 1);
+  const previo = paginaDeCafe(cafe.id - 1);
+  const proximo = paginaDeCafe(cafe.id + 1);
 
   if (anterior) {
     if (previo) {
-      anterior.href = `detalle.html?id=${previo.id}`;
+      anterior.href = previo.href;
       anterior.querySelector("span:last-child").textContent = previo.nombre;
     } else {
       anterior.hidden = true;
@@ -227,7 +238,7 @@ function initControlesDetalle(cafe) {
 
   if (siguiente) {
     if (proximo) {
-      siguiente.href = `detalle.html?id=${proximo.id}`;
+      siguiente.href = proximo.href;
       siguiente.querySelector("span:first-child").textContent = proximo.nombre;
     } else {
       siguiente.hidden = true;
@@ -324,16 +335,26 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const id = obtenerParametro("id") || "1";
-    pintarDetalle(id);
+    if (detalleCard.dataset.cafe) {
+      // Página estática propia del café (cafe-*.html): el contenido ya está en el HTML
+      const nombre =
+        document.querySelector(".detail-title")?.textContent.trim() ||
+        document.getElementById("title-placeholder")?.textContent.trim() ||
+        "café";
+      initControlesPedido(nombre);
+    } else {
+      // Página dinámica detalle.html?id=N
+      const id = obtenerParametro("id") || "1";
+      pintarDetalle(id);
 
-    if (btnVolver) {
-      btnVolver.addEventListener("click", (evento) => {
-        if (window.history.length > 1 && document.referrer) {
-          evento.preventDefault();
-          window.history.back();
-        }
-      });
+      if (btnVolver) {
+        btnVolver.addEventListener("click", (evento) => {
+          if (window.history.length > 1 && document.referrer) {
+            evento.preventDefault();
+            window.history.back();
+          }
+        });
+      }
     }
   } else {
     initBuscador();
